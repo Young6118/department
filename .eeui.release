@@ -1,0 +1,8 @@
+{
+	"name": "findfang",
+	"appName": "findfang",
+	"applicationID": "cn.youngchou.findfang",
+	"bundleIdentifier": "cn.youngchou.findfang",
+	"release": "2.3.4",
+	"location": "github"
+}
