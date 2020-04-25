@@ -98,8 +98,7 @@ if(typeof eeuiLog=="undefined"){var eeuiLog={_:function(t,e){var s=e.map(functio
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
 //
 //
 //
@@ -252,7 +251,6 @@ var eeui = app.requireModule('eeui');
 var stream = weex.requireModule('stream') || {};
 var modal = weex.requireModule('modal') || {};
 var API = 'https://api.unsplash.com/search/photos?page=1&query=ocean&orientation=landscape&client_id=8cd8d9f168aa2f3f57edfd5a883305df7f7ba96a9fb414231d77c244213efce8';
-var page_size = 4;
 var mmmm = app.requireModule('modal');
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -300,7 +298,8 @@ var mmmm = app.requireModule('modal');
       }, {
         title: '银行卡信息',
         file: ''
-      }]
+      }],
+      page_size: 4
     };
   },
   created: function created() {// const self = this;
@@ -320,13 +319,13 @@ var mmmm = app.requireModule('modal');
     // });
   },
   mounted: function mounted() {
-    for (var i = 1; i <= page_size; i++) {
+    for (var i = 1; i <= this.page_size; i++) {
       this.lists.push(i);
     }
 
     this.$refs.reflectName.setHasMore(true);
   },
-  methods: _defineProperty({
+  methods: {
     viewCode: function viewCode(str) {
       this.openViewCode(str);
     },
@@ -351,8 +350,8 @@ var mmmm = app.requireModule('modal');
           gravity: "middle"
         });
 
-        _this.$refs[params.tabNfame].refreshEnd();
-      }, 1000);
+        _this.$refs[params.tabName].refreshEnd();
+      }, 10);
     },
     goTo: function goTo(path) {
       eeui.toast({
@@ -383,7 +382,7 @@ var mmmm = app.requireModule('modal');
       }
 
       setTimeout(function () {
-        for (var i = 1; i <= page_size; i++) {
+        for (var i = 1; i <= _this2.page_size; i++) {
           _this2.lists.push(count + i);
         }
 
@@ -391,26 +390,27 @@ var mmmm = app.requireModule('modal');
 
         eeui.toast("加载" + (count + 1) + "~" + _this2.lists.length + "数据成功");
       }, 1000);
+    },
+    refreshListener2: function refreshListener2() {
+      var _this3 = this;
+
+      var newList = [];
+
+      for (var i = 1; i <= this.page_size; i++) {
+        newList.push(i);
+      }
+
+      setTimeout(function () {
+        _this3.lists = newList;
+
+        _this3.$refs.reflectName.setHasMore(true);
+
+        _this3.$refs.reflectName.refreshed();
+
+        eeui.toast("刷新数据成功");
+      }, 1000);
     }
-  }, "refreshListener", function refreshListener() {
-    var _this3 = this;
-
-    var newList = [];
-
-    for (var i = 1; i <= page_size; i++) {
-      newList.push(i);
-    }
-
-    setTimeout(function () {
-      _this3.lists = newList;
-
-      _this3.$refs.reflectName.setHasMore(true);
-
-      _this3.$refs.reflectName.refreshed();
-
-      eeui.toast("刷新数据成功");
-    }, 1000);
-  })
+  }
 });
 
 /***/ }),
@@ -476,13 +476,15 @@ module.exports = {
   },
   "city": {
     "color": "#ffffff",
-    "fontSize": "30"
+    "fontSize": "30",
+    "lineHeight": "70"
   },
   "arrown-down": {
     "color": "#ffffff",
     "width": "40",
     "height": "20",
-    "fontSize": "30"
+    "fontSize": "30",
+    "lineHeight": "70"
   },
   "input": {
     "marginLeft": "20",
@@ -491,16 +493,25 @@ module.exports = {
     "borderWidth": "1",
     "height": "70",
     "fontSize": "30",
+    "lineHeight": "70",
+    "color": "#9c9a9a",
     "borderRadius": "10",
     "width": "490",
     "borderColor": "#2d63da"
   },
-  "icon": {
-    "color": "#ffffff",
-    "marginRight": "30",
-    "width": "60",
-    "height": "80",
-    "fontSize": "60"
+  "input-right": {
+    "backgroundColor": "#ffffff",
+    "borderRightWidth": "1",
+    "borderRightColor": "#2d63da",
+    "height": "70",
+    "width": "105",
+    "borderTopWidth": "1",
+    "borderTopColor": "#2d63da",
+    "borderBottomWidth": "1",
+    "borderBottomColor": "#2d63da",
+    "marginRight": "20",
+    "borderBottomRightRadius": "10",
+    "borderTopRightRadius": "10"
   },
   "flex": {
     "color": "#ffffff",
@@ -738,29 +749,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "title"
     }
-  }, [_c('input', {
+  }, [_c('text', {
     staticClass: ["input"],
-    attrs: {
-      "placeholder": "丈八北路 | 西二旗 | 张江地铁站",
-      "type": "text"
-    }
-  })]), _c('navbar-item', {
-    attrs: {
-      "type": "right"
-    },
     on: {
       "click": function($event) {
-        _vm.viewCode('component/tabbar')
+        _vm.push('component_search.js')
       }
     }
-  }, [_c('icon', {
-    staticClass: ["icon"],
+  }, [_vm._v("丈八北路 | 西二旗 | 张江地铁站")])]), _c('navbar-item', {
     attrs: {
-      "eeui": {
-        content: 'ios-search'
+      "type": "right"
+    }
+  }, [_c('text', {
+    staticClass: ["input-right"],
+    on: {
+      "click": function($event) {
+        _vm.push('component_search.js')
       }
     }
-  })], 1)], 1), _c('div', {
+  })])], 1), _c('div', {
     staticClass: ["page-content"]
   }, [_c('marquee', {
     ref: "reflectName",
@@ -859,12 +866,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "eeui": {
         pullTips: true,
+        scrollBarEnabled: false
       }
     },
     on: {
       "itemClick": _vm.itemClick,
       "pullLoadListener": _vm.pullLoadListener,
-      "refreshListener": _vm.refreshListener
+      "refreshListener": _vm.refreshListener2
     }
   }, _vm._l((_vm.lists), function(num) {
     return _c('div', {

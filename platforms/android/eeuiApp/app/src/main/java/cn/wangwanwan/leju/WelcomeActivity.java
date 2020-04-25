@@ -1,4 +1,4 @@
-package cn.youngchou.quanjia;
+package cn.wangwanwan.leju;
 
 import android.os.Bundle;
 import android.os.Handler;

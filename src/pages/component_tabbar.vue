@@ -17,10 +17,10 @@
                         <icon class="arrown-down" @click="goTo('前往地址选择页面')" :eeui="{content: 'ios-arrow-down'}"></icon>
                     </navbar-item>
                     <navbar-item type="title">
-                        <input placeholder="丈八北路 | 西二旗 | 张江地铁站" class="input" type="text"/>
+                        <text class="input" @click="push('component_search.js')">丈八北路 | 西二旗 | 张江地铁站</text>
                     </navbar-item>
-                    <navbar-item type="right" @click="viewCode('component/tabbar')">
-                        <icon class="icon" :eeui="{ content: 'ios-search' }"></icon>
+                    <navbar-item type="right">
+                        <text class="input-right" @click="push('component_search.js')"></text>
                     </navbar-item>
                 </navbar>
                 <div class="page-content">
@@ -59,10 +59,11 @@
                         class="list"
                         :eeui="{
                                 pullTips: true,
+                                scrollBarEnabled: false
                             }"
                         @itemClick="itemClick"
                         @pullLoadListener="pullLoadListener"
-                        @refreshListener="refreshListener">
+                        @refreshListener="refreshListener2">
                         <div class="panel" v-for="num in lists">
                             <div class="panel-item">
                                 <image class="fang-img" resize="cover" src="https://ke-image.ljcdn.com/110000-inspection/pc1_CUm3KlMXl.jpg.280x210.jpg"></image>
@@ -151,7 +152,6 @@
     const stream = weex.requireModule('stream') || {};
     const modal = weex.requireModule('modal') || {};
     const API = 'https://api.unsplash.com/search/photos?page=1&query=ocean&orientation=landscape&client_id=8cd8d9f168aa2f3f57edfd5a883305df7f7ba96a9fb414231d77c244213efce8';
-    const page_size = 4;
     const mmmm = app.requireModule('modal');
 
     export default {
@@ -205,7 +205,8 @@
                         title: '银行卡信息',
                         file: ''
                     },
-                ]
+                ],
+                page_size: 4,
             }
         },
         created: function() {
@@ -226,7 +227,7 @@
             // });
         },
         mounted () {
-            for (let i = 1; i <= page_size; i++) {
+            for (let i = 1; i <= this.page_size; i++) {
                 this.lists.push(i);
             }
             this.$refs.reflectName.setHasMore(true);
@@ -253,8 +254,8 @@
                         message: "刷新成功：" + params.tabName,
                         gravity: "middle"
                     });
-                    this.$refs[params.tabNfame].refreshEnd();
-                }, 1000);
+                    this.$refs[params.tabName].refreshEnd();
+                }, 10);
             },
             goTo (path) {
                 eeui.toast({
@@ -281,7 +282,7 @@
                     return;
                 }
                 setTimeout(() => {
-                    for (let i = 1; i <= page_size; i++) {
+                    for (let i = 1; i <= this.page_size; i++) {
                         this.lists.push(count + i);
                     }
                     this.$refs.reflectName.pullloaded();
@@ -289,9 +290,9 @@
                 }, 1000);
 
             },
-            refreshListener() {
+            refreshListener2() {
                 let newList = [];
-                for (let i = 1; i <= page_size; i++) {
+                for (let i = 1; i <= this.page_size; i++) {
                     newList.push(i);
                 }
                 setTimeout(() => {
@@ -363,12 +364,15 @@
     .city {
         color: #fff;
         font-size: 30px;
+        line-height: 70px;
+
     }
     .arrown-down {
         color: #fff;
         width: 40px;
         height: 20px;
         font-size: 30px;
+        line-height: 70px;
     }
     .input {
         margin-left: 20px;
@@ -377,17 +381,28 @@
         border-width: 1px;
         height: 70px;
         font-size: 30px;
+        line-height: 70px;
+        color: #9c9a9a;
         border-radius: 10px;
         width: 490px;
         border-color: #2d63da;
     }
-    .icon {
-        color: #fff;
-        margin-right: 30px;
-        width: 60px;
-        height: 80px;
-        font-size: 60px;
+
+    .input-right {
+        background-color: #fff;
+        border-right-width: 1px;
+        border-right-color: #2d63da;
+        height: 70px;
+        width: 105px;
+        border-top-width: 1px;
+        border-top-color: #2d63da;
+        border-bottom-width: 1px;
+        border-bottom-color: #2d63da;
+        margin-right: 20px;
+        border-bottom-right-radius: 10px;
+        border-top-right-radius: 10px;
     }
+
     .flex {
         color: #fff;
         width: 120px;

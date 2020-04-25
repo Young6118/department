@@ -1,12 +1,12 @@
 {
 	"name": "findfang",
-	"appName": "趣安家",
-	"applicationID": "cn.youngchou.quanjia",
+	"appName": "乐居",
+	"applicationID": "cn.wangwanwan.leju",
 	"bundleIdentifier": "cn.youngchou.findfang",
 	"release": "2.3.4",
 	"location": "github",
 	"versionCode": "1",
-	"versionName": "1.0",
+	"versionName": "1.0.1",
 	"CFBundleVersion": "1",
 	"CFBundleShortVersionString": "1.0"
 }
