@@ -1,4 +1,4 @@
-package cn.youngchou.findfang;
+package cn.youngchou.quanjia;
 
 import android.app.Application;
 import android.content.Context;

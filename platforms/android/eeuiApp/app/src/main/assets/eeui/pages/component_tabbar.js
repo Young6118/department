@@ -98,6 +98,38 @@ if(typeof eeuiLog=="undefined"){var eeuiLog={_:function(t,e){var s=e.map(functio
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -217,8 +249,84 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 var eeui = app.requireModule('eeui');
+var stream = weex.requireModule('stream') || {};
+var modal = weex.requireModule('modal') || {};
+var API = 'https://api.unsplash.com/search/photos?page=1&query=ocean&orientation=landscape&client_id=8cd8d9f168aa2f3f57edfd5a883305df7f7ba96a9fb414231d77c244213efce8';
+var page_size = 4;
+var mmmm = app.requireModule('modal');
 /* harmony default export */ __webpack_exports__["default"] = ({
-  methods: {
+  data: function data() {
+    return {
+      scrollText: "🔥热搜   恒大绿洲  世纪华阳  东方金典  碧桂园  绿地  丈八北路   👉👉👉",
+      imageList: [{
+        src: 'http://img2.imgtn.bdimg.com/it/u=2296151058,2315950536&fm=11&gp=0.jpg'
+      }, {
+        src: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1938633178,3861272544&fm=26&gp=0.jpg'
+      }, {
+        src: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3084942693,506713247&fm=26&gp=0.jpg'
+      }],
+      gridLists: [{
+        icon: "tb-money-bag",
+        title: '邀请注册'
+      }, {
+        icon: "tb-shop",
+        title: '网上认购'
+      }, {
+        icon: "tb-people-list",
+        title: "我的推荐"
+      }, {
+        icon: "tb-list",
+        title: "我的成交"
+      }, {
+        icon: "ios-apps",
+        title: "更多"
+      }],
+      lists: [],
+      menuList: [{
+        title: '我的订单',
+        file: ''
+      }, {
+        title: '我关注的房源',
+        file: ''
+      }, {
+        title: '我的置业顾问',
+        file: ''
+      }, {
+        title: '我的推广',
+        file: ''
+      }, {
+        title: '联系客服',
+        file: ''
+      }, {
+        title: '银行卡信息',
+        file: ''
+      }]
+    };
+  },
+  created: function created() {// const self = this;
+    // stream.fetch({
+    //     method: 'GET',
+    //     url: API,
+    //     type:'json'
+    // }, function (ret) {
+    //     if (!ret.ok) {
+    //         modal.toast({
+    //             message: 'Network Error!',
+    //             duration: 3
+    //         });
+    //     } else {
+    //         self.posts = self.posts.concat(ret.data.results);
+    //     }
+    // });
+  },
+  mounted: function mounted() {
+    for (var i = 1; i <= page_size; i++) {
+      this.lists.push(i);
+    }
+
+    this.$refs.reflectName.setHasMore(true);
+  },
+  methods: _defineProperty({
     viewCode: function viewCode(str) {
       this.openViewCode(str);
     },
@@ -243,10 +351,66 @@ var eeui = app.requireModule('eeui');
           gravity: "middle"
         });
 
-        _this.$refs[params.tabName].refreshEnd();
+        _this.$refs[params.tabNfame].refreshEnd();
+      }, 1000);
+    },
+    goTo: function goTo(path) {
+      eeui.toast({
+        message: path,
+        gravity: "middle"
+      });
+    },
+    push: function push(file) {
+      eeui.openPage({
+        url: file,
+        pageType: 'app'
+      });
+    },
+    itemClick: function itemClick(res) {
+      mmmm.toast({
+        message: "点击" + (res.position + 1) + "项",
+        duration: 0.3
+      });
+    },
+    pullLoadListener: function pullLoadListener() {
+      var _this2 = this;
+
+      var count = this.lists.length;
+
+      if (count >= 30) {
+        this.$refs.reflectName.setHasMore(false);
+        return;
+      }
+
+      setTimeout(function () {
+        for (var i = 1; i <= page_size; i++) {
+          _this2.lists.push(count + i);
+        }
+
+        _this2.$refs.reflectName.pullloaded();
+
+        eeui.toast("加载" + (count + 1) + "~" + _this2.lists.length + "数据成功");
       }, 1000);
     }
-  }
+  }, "refreshListener", function refreshListener() {
+    var _this3 = this;
+
+    var newList = [];
+
+    for (var i = 1; i <= page_size; i++) {
+      newList.push(i);
+    }
+
+    setTimeout(function () {
+      _this3.lists = newList;
+
+      _this3.$refs.reflectName.setHasMore(true);
+
+      _this3.$refs.reflectName.refreshed();
+
+      eeui.toast("刷新数据成功");
+    }, 1000);
+  })
 });
 
 /***/ }),
@@ -273,8 +437,8 @@ module.exports = {
   },
   "page-content": {
     "width": "750",
-    "paddingTop": "200",
-    "paddingBottom": "200",
+    "paddingTop": 0,
+    "paddingBottom": 0,
     "alignItems": "center"
   },
   "content-text": {
@@ -283,6 +447,18 @@ module.exports = {
     "paddingRight": "20",
     "paddingBottom": "20",
     "paddingLeft": "20"
+  },
+  "menu-text": {
+    "fontSize": "30",
+    "paddingTop": "40",
+    "paddingRight": "40",
+    "paddingBottom": "40",
+    "paddingLeft": "40",
+    "textAlign": "right",
+    "width": "750",
+    "borderBottomColor": "#e4e4e4",
+    "borderBottomStyle": "solid",
+    "borderBottomWidth": "1"
   },
   "page-navbar": {
     "width": "750",
@@ -297,6 +473,201 @@ module.exports = {
     "height": "480",
     "marginTop": "30",
     "marginBottom": "30"
+  },
+  "city": {
+    "color": "#ffffff",
+    "fontSize": "30"
+  },
+  "arrown-down": {
+    "color": "#ffffff",
+    "width": "40",
+    "height": "20",
+    "fontSize": "30"
+  },
+  "input": {
+    "marginLeft": "20",
+    "backgroundColor": "#ffffff",
+    "paddingLeft": "10",
+    "borderWidth": "1",
+    "height": "70",
+    "fontSize": "30",
+    "borderRadius": "10",
+    "width": "490",
+    "borderColor": "#2d63da"
+  },
+  "icon": {
+    "color": "#ffffff",
+    "marginRight": "30",
+    "width": "60",
+    "height": "80",
+    "fontSize": "60"
+  },
+  "flex": {
+    "color": "#ffffff",
+    "width": "120",
+    "height": "100",
+    "paddingLeft": "30",
+    "flexDirection": "row",
+    "justifyContent": "center",
+    "alignItems": "center"
+  },
+  "marquee": {
+    "height": "60",
+    "backgroundColor": "#ffffff",
+    "paddingLeft": "20"
+  },
+  "banner": {
+    "width": "750",
+    "height": "420"
+  },
+  "banner-frame": {
+    "width": "750",
+    "height": "420",
+    "position": "relative"
+  },
+  "banner-image": {
+    "width": "750",
+    "height": "420"
+  },
+  "grid": {
+    "width": "750",
+    "height": "180"
+  },
+  "grid-item": {
+    "width": "150",
+    "height": "180",
+    "alignItems": "center"
+  },
+  "item-image": {
+    "backgroundColor": "#3e9636",
+    "fontSize": "60",
+    "marginTop": "10",
+    "color": "#ffffff",
+    "width": "120",
+    "height": "120",
+    "borderRadius": 40
+  },
+  "item-title": {
+    "width": "250",
+    "height": "50",
+    "lineHeight": "50",
+    "textAlign": "center"
+  },
+  "myhouse": {
+    "textAlign": "left",
+    "width": "750",
+    "marginTop": "25",
+    "paddingTop": "15",
+    "paddingRight": "50",
+    "paddingBottom": "15",
+    "paddingLeft": "50",
+    "fontSize": "30"
+  },
+  "all-house": {
+    "width": 600,
+    "paddingTop": "15",
+    "paddingRight": "50",
+    "paddingBottom": "15",
+    "paddingLeft": "50",
+    "fontSize": "30"
+  },
+  "house-div": {
+    "flexDirection": "row",
+    "justifyContent": "center",
+    "alignItems": "center",
+    "width": "750",
+    "height": "200"
+  },
+  "house-msg": {
+    "width": "650",
+    "height": "200",
+    "borderWidth": "1",
+    "borderRadius": "20",
+    "borderColor": "#20c08d",
+    "flexDirection": "column",
+    "justifyContent": "center",
+    "alignItems": "center"
+  },
+  "house-text": {
+    "paddingTop": "50",
+    "paddingRight": "50",
+    "paddingBottom": "50",
+    "paddingLeft": "50",
+    "height": "112",
+    "fontSize": "24",
+    "marginBottom": "30"
+  },
+  "button": {
+    "fontSize": "30",
+    "width": "650",
+    "height": "60",
+    "color": "#20c08d",
+    "marginTop": 0,
+    "marginRight": 0,
+    "marginBottom": 0,
+    "marginLeft": 0,
+    "borderWidth": "1",
+    "borderRadius": "20",
+    "borderColor": "#20c08d"
+  },
+  "list": {
+    "width": "750",
+    "flex": 1
+  },
+  "panel": {
+    "width": "750",
+    "borderBottomColor": "#e4e4e4",
+    "borderBottomStyle": "solid",
+    "borderBottomWidth": "1"
+  },
+  "panel-item": {
+    "width": "750",
+    "paddingTop": "22",
+    "paddingBottom": "22",
+    "flexDirection": "row",
+    "justifyContent": "space-between",
+    "alignItems": "center"
+  },
+  "house-info": {
+    "width": "520",
+    "height": "180",
+    "flexDirection": "column",
+    "justifyContent": "center"
+  },
+  "house-type": {
+    "marginTop": "25",
+    "width": "750",
+    "height": "60",
+    "flexDirection": "row",
+    "justifyContent": "flex-end"
+  },
+  "type-button": {
+    "width": "72",
+    "paddingTop": "10",
+    "paddingRight": "10",
+    "paddingBottom": "10",
+    "paddingLeft": "10",
+    "color": "#2d63da",
+    "fontSize": "26"
+  },
+  "panel-text": {
+    "fontSize": "26",
+    "textAlign": "left"
+  },
+  "house-tag": {
+    "flexDirection": "row"
+  },
+  "house-tag-text": {
+    "lineHeight": "50",
+    "paddingLeft": "10",
+    "backgroundColor": "#f8f8f8",
+    "color": "#222222",
+    "width": "380"
+  },
+  "fang-img": {
+    "marginLeft": "10",
+    "width": "200",
+    "height": "140"
   }
 }
 
@@ -316,6 +687,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "reflectName",
     staticClass: ["tabbar"],
     attrs: {
+      "preload": "true",
       "eeui": {
         tabType: 'bottom'
       }
@@ -339,16 +711,40 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('navbar', {
     staticClass: ["page-navbar"]
   }, [_c('navbar-item', {
+    staticClass: ["flex"],
     attrs: {
-      "type": "back"
+      "type": "left"
     }
-  }), _c('navbar-item', {
+  }, [_c('text', {
+    staticClass: ["city"],
+    on: {
+      "click": function($event) {
+        _vm.goTo('前往地址选择页面')
+      }
+    }
+  }, [_vm._v("西安")]), _c('icon', {
+    staticClass: ["arrown-down"],
+    attrs: {
+      "eeui": {
+        content: 'ios-arrow-down'
+      }
+    },
+    on: {
+      "click": function($event) {
+        _vm.goTo('前往地址选择页面')
+      }
+    }
+  })], 1), _c('navbar-item', {
     attrs: {
       "type": "title"
     }
-  }, [_c('text', {
-    staticClass: ["page-navbar-title"]
-  }, [_vm._v("首页")])]), _c('navbar-item', {
+  }, [_c('input', {
+    staticClass: ["input"],
+    attrs: {
+      "placeholder": "丈八北路 | 西二旗 | 张江地铁站",
+      "type": "text"
+    }
+  })]), _c('navbar-item', {
     attrs: {
       "type": "right"
     },
@@ -358,28 +754,166 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('icon', {
-    staticClass: ["iconr"],
+    staticClass: ["icon"],
     attrs: {
-      "content": "md-code-working"
+      "eeui": {
+        content: 'ios-search'
+      }
     }
   })], 1)], 1), _c('div', {
     staticClass: ["page-content"]
-  }, [_c('image', {
-    staticClass: ["page-content-image"],
+  }, [_c('marquee', {
+    ref: "reflectName",
+    staticClass: ["marquee"],
+    staticStyle: {
+      width: "750px",
+      height: "50px",
+      fontSize: "24px"
+    },
     attrs: {
-      "src": "https://eeui.app/assets/images/cartoon/m2.png"
+      "text": _vm.scrollText
+    },
+    on: {
+      "click": function($event) {
+        _vm.goTo('前往热搜页面')
+      }
     }
-  }), _c('text', {
-    staticClass: ["content-text"]
-  }, [_vm._v("页签里面可以放任何子组件，感谢你对eeui的支持")])])], 1), _c('tabbar-page', {
+  }), _c('banner', {
+    staticClass: ["banner"],
+    on: {
+      "itemClick": _vm.itemClick
+    }
+  }, _vm._l((_vm.imageList), function(img) {
+    return _c('div', {
+      staticClass: ["banner-frame"]
+    }, [_c('image', {
+      staticClass: ["banner-image"],
+      attrs: {
+        "resize": "cover",
+        "src": img.src
+      }
+    })])
+  })), _c('grid', {
+    staticClass: ["grid"],
+    attrs: {
+      "divider": false,
+      "columns": "5",
+      "row": "1",
+      "indicatorShow": false
+    }
+  }, _vm._l((_vm.gridLists), function(item, index) {
+    return _c('div', {
+      key: index,
+      staticClass: ["grid-item"]
+    }, [_c('icon', {
+      staticClass: ["item-image"],
+      attrs: {
+        "eeui": {
+          content: item.icon
+        }
+      }
+    }), _c('text', {
+      staticClass: ["item-title"]
+    }, [_vm._v(_vm._s(item.title))])], 1)
+  })), _c('text', {
+    staticClass: ["myhouse"]
+  }, [_vm._v("我的房子")]), _c('div', {
+    staticClass: ["house-div"]
+  }, [_c('div', {
+    staticClass: ["house-msg"]
+  }, [_c('text', {
+    staticClass: ["house-text"]
+  }, [_vm._v("选择心仪的房源，实时关注房价估值走势，随时掌握小区均价和邻里动态")]), _c('button', {
+    staticClass: ["button"],
+    attrs: {
+      "text": "立即查看",
+      "model": "white"
+    }
+  })], 1)]), _c('div', {
+    staticClass: ["house-type"]
+  }, [_c('text', {
+    staticClass: ["all-house"],
+    on: {
+      "click": function($event) {
+        _vm.push('index.js')
+      }
+    }
+  }, [_vm._v("为您推荐  ➤ ")]), _c('button', {
+    staticClass: ["type-button"],
+    attrs: {
+      "text": "城市",
+      "model": "white"
+    }
+  }), _c('button', {
+    staticClass: ["type-button"],
+    staticStyle: {
+      marginRight: "10px"
+    },
+    attrs: {
+      "text": "类型",
+      "model": "white"
+    }
+  })], 1), _c('scroll-view', {
+    ref: "reflectName",
+    staticClass: ["list"],
+    attrs: {
+      "eeui": {
+        pullTips: true,
+      }
+    },
+    on: {
+      "itemClick": _vm.itemClick,
+      "pullLoadListener": _vm.pullLoadListener,
+      "refreshListener": _vm.refreshListener
+    }
+  }, _vm._l((_vm.lists), function(num) {
+    return _c('div', {
+      staticClass: ["panel"]
+    }, [_c('div', {
+      staticClass: ["panel-item"]
+    }, [_c('image', {
+      staticClass: ["fang-img"],
+      attrs: {
+        "resize": "cover",
+        "src": "https://ke-image.ljcdn.com/110000-inspection/pc1_CUm3KlMXl.jpg.280x210.jpg"
+      }
+    }), _c('div', {
+      staticClass: ["house-info"]
+    }, [_c('text', {
+      staticClass: ["panel-text"]
+    }, [_vm._v("檀香府南北通透三居室")]), _c('text', {
+      staticClass: ["panel-text"]
+    }, [_vm._v("135.24㎡/南 北/高楼层 (共6层)")]), _c('div', {
+      staticClass: ["house-tag"]
+    }, [_c('image', {
+      staticStyle: {
+        height: "45px",
+        width: "120px"
+      },
+      attrs: {
+        "src": "https://img.ljcdn.com/beike/haofanglogo/1573111250229.png"
+      }
+    }), _c('text', {
+      staticClass: ["house-tag-text"]
+    }, [_vm._v("诚心卖，省心买")])]), _c('div', {
+      staticClass: ["house-tag"]
+    }, [_c('text', {
+      staticClass: ["panel-text"],
+      staticStyle: {
+        color: "#fe615a",
+        marginRight: "40px"
+      }
+    }, [_vm._v("439 万")]), _c('text', {
+      staticClass: ["panel-text"]
+    }, [_vm._v("32460.8 元/平米")])])])])])
+  }))], 1)], 1), _c('tabbar-page', {
     ref: "name_2",
     attrs: {
       "eeui": {
         tabName: 'name_2',
-        title: '好友',
-        message: 3,
-        selectedIcon: 'https://eeui.app/assets/images/cartoon/m8.png',
-        unSelectedIcon: 'https://eeui.app/assets/images/cartoon/m7.png'
+        title: '消息',
+        message: 0,
+        selectedIcon: 'ios-chatboxes'
       }
     },
     on: {
@@ -393,7 +927,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('text', {
     staticClass: ["page-navbar-title"]
-  }, [_vm._v("好友")])])], 1), _c('div', {
+  }, [_vm._v("消息")])])], 1), _c('div', {
     staticClass: ["page-content"]
   }, [_c('text', {
     staticClass: ["content-text"]
@@ -402,9 +936,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "eeui": {
         tabName: 'name_3',
-        title: '圈子',
-        message: 99,
-        selectedIcon: 'md-aperture'
+        title: '福利',
+        dot: true,
+        selectedIcon: 'md-gift'
       }
     },
     on: {
@@ -418,20 +952,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('text', {
     staticClass: ["page-navbar-title"]
-  }, [_vm._v("操作")])])], 1), _c('div', {
+  }, [_vm._v("福利中心")])])], 1), _c('div', {
     staticClass: ["page-content"]
-  }, _vm._l((20), function(i) {
-    return _c('text', {
-      staticClass: ["content-text"]
-    }, [_vm._v("长页面占位 " + _vm._s(i))])
-  }))], 1), _c('tabbar-page', {
+  }, [_c('text', {
+    staticClass: ["content-text"]
+  }, [_vm._v("看广告赚钱")])])], 1), _c('tabbar-page', {
     ref: "name_4",
     attrs: {
       "eeui": {
         tabName: 'name_4',
-        title: '设置',
-        dot: true,
-        selectedIcon: 'md-cog'
+        title: '我的',
+        message: 0,
+        selectedIcon: 'md-person'
       }
     },
     on: {
@@ -445,11 +977,66 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('text', {
     staticClass: ["page-navbar-title"]
-  }, [_vm._v("设置")])])], 1), _c('div', {
+  }, [_vm._v("我的")])]), _c('navbar-item', {
+    attrs: {
+      "type": "right"
+    },
+    on: {
+      "click": function($event) {
+        _vm.viewCode('component/tabbar')
+      }
+    }
+  }, [_c('icon', {
+    staticClass: ["icon"],
+    attrs: {
+      "eeui": {
+        content: 'md-settings'
+      }
+    }
+  })], 1)], 1), _c('div', {
     staticClass: ["page-content"]
+  }, [_c('div', {
+    staticClass: ["panel-item"]
+  }, [_c('image', {
+    staticClass: ["fang-img"],
+    attrs: {
+      "resize": "cover",
+      "src": "https://ke-image.ljcdn.com/110000-inspection/pc1_CUm3KlMXl.jpg.280x210.jpg"
+    }
+  }), _c('div', {
+    staticClass: ["house-info"]
   }, [_c('text', {
-    staticClass: ["content-text"]
-  }, [_vm._v("page 4")])])], 1)], 1)])
+    staticClass: ["panel-text"]
+  }, [_vm._v("檀香府南北通透三居室")]), _c('text', {
+    staticClass: ["panel-text"]
+  }, [_vm._v("135.24㎡/南 北/高楼层 (共6层)")]), _c('div', {
+    staticClass: ["house-tag"]
+  }, [_c('image', {
+    staticStyle: {
+      height: "45px",
+      width: "120px"
+    },
+    attrs: {
+      "src": "https://img.ljcdn.com/beike/haofanglogo/1573111250229.png"
+    }
+  }), _c('text', {
+    staticClass: ["house-tag-text"]
+  }, [_vm._v("诚心卖，省心买")])]), _c('div', {
+    staticClass: ["house-tag"]
+  }, [_c('text', {
+    staticClass: ["panel-text"],
+    staticStyle: {
+      color: "#fe615a",
+      marginRight: "40px"
+    }
+  }, [_vm._v("439 万")]), _c('text', {
+    staticClass: ["panel-text"]
+  }, [_vm._v("32460.8 元/平米")])])])]), _vm._l((_vm.menuList), function(item, index) {
+    return _c('text', {
+      key: index,
+      staticClass: ["menu-text"]
+    }, [_vm._v(_vm._s(item.title))])
+  })], 2)], 1)], 1)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 

@@ -1,6 +1,6 @@
 {
 	"serviceUrl": "",
-	"homePage": "",
+	"homePage": "component_tabbar.js",
 	"homePageParams": {},
 	"appKey": "LM9rlGeYOuYJvNR7DzVUZapSx3VhRvLi",
 	"android": {
@@ -44,5 +44,5 @@
 	},
 	"socketHost": "192.168.1.7",
 	"socketPort": 8880,
-	"socketHome": "http://192.168.1.7:9990/pages/index.js"
+	"socketHome": "http://192.168.1.7:9990/pages/component_tabbar.js"
 }

@@ -46,7 +46,7 @@ task clean(type: Delete) {
 
 subprojects {
     ext {
-        applicationId = "cn.youngchou.findfang"
+        applicationId = "cn.youngchou.quanjia"
 
         versionCode = 1
         versionName = "1.0"
