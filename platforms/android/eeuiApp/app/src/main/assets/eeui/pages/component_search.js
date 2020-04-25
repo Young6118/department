@@ -143,6 +143,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var eeui = app.requireModule('eeui');
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -160,7 +162,8 @@ var eeui = app.requireModule('eeui');
       keywords: '',
       lists: [],
       page_size: 6,
-      isSearch: false
+      isSearch: false,
+      returnTopVisible: false
     };
   },
   mounted: function mounted() {},
@@ -256,6 +259,16 @@ var eeui = app.requireModule('eeui');
 
         eeui.toast("刷新数据成功");
       }, 300);
+    },
+    goTop: function goTop(num) {
+      this.$refs.reflectName.smoothScrollToPosition(num);
+    },
+    checkReturn: function checkReturn(status) {
+      if (status.y > 1500) {
+        this.returnTopVisible = true;
+      } else {
+        this.returnTopVisible = false;
+      }
     }
   }
 });
@@ -271,6 +284,7 @@ var eeui = app.requireModule('eeui');
 
 module.exports = {
   "app": {
+    "position": "relative",
     "width": "750",
     "flex": 1,
     "backgroundColor": "#ffffff"
@@ -355,6 +369,19 @@ module.exports = {
     "width": "60",
     "height": "80",
     "fontSize": "60"
+  },
+  "icon-top": {
+    "position": "absolute",
+    "bottom": "50",
+    "right": "30",
+    "width": "90",
+    "height": "90",
+    "borderRadius": "90",
+    "borderWidth": "2",
+    "borderColor": "#757575",
+    "backgroundColor": "#ffffff",
+    "fontSize": "45",
+    "color": "#757575"
   },
   "panel": {
     "width": "750",
@@ -493,6 +520,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "itemClick": _vm.itemClick,
       "pullLoadListener": _vm.pullLoadListener,
+      "scrollStateChanged": _vm.checkReturn,
       "refreshListener": _vm.refreshListener
     }
   }, _vm._l((_vm.lists), function(num, index) {
@@ -536,7 +564,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("439 万")]), _c('text', {
       staticClass: ["panel-text"]
     }, [_vm._v("32460.8 元/平米")])])])])])
-  }))], 1)
+  })), (_vm.returnTopVisible) ? _c('icon', {
+    staticClass: ["icon-top"],
+    attrs: {
+      "eeui": {
+        content: 'tb-top'
+      }
+    },
+    on: {
+      "click": function($event) {
+        _vm.goTop(0)
+      }
+    }
+  }) : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 

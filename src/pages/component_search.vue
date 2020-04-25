@@ -21,6 +21,7 @@
                 }"
             @itemClick="itemClick"
             @pullLoadListener="pullLoadListener"
+            @scrollStateChanged ="checkReturn"
             @refreshListener="refreshListener">
             <div class="panel" v-for="(num, index) in lists" :key="index">
                 <div class="panel-item">
@@ -40,6 +41,7 @@
                 </div>
             </div>
         </scroll-view>
+        <icon v-if="returnTopVisible" class="icon-top" @click="goTop(0)" :eeui="{ content: 'tb-top' }"></icon>
     </div>
 </template>
 
@@ -63,6 +65,7 @@
                 lists: [],
                 page_size: 6,
                 isSearch: false,
+                returnTopVisible: false
             };
         },
         mounted() {
@@ -134,14 +137,24 @@
                     this.$refs.reflectName.refreshed();
                     eeui.toast("刷新数据成功");
                 }, 300);
-
             },
+            goTop (num) {
+                this.$refs.reflectName.smoothScrollToPosition(num);
+            },
+            checkReturn (status) {
+                if (status.y > 1500) {
+                    this.returnTopVisible = true;
+                } else {
+                    this.returnTopVisible = false;
+                }
+            }
         }
     };
 </script>
 
 <style scoped>
     .app {
+        position: relative;
         width: 750px;
         flex: 1;
         background-color: #ffffff;
@@ -242,6 +255,19 @@
         font-size: 60px;
     }
 
+    .icon-top {
+        position: absolute;
+        bottom: 50px;
+        right: 30px;
+        width: 90px;
+        height: 90px;
+        border-radius: 90px;
+        border-width: 2px;
+        border-color: #757575;
+        background-color: #ffffff;
+        font-size: 45px;
+        color: #757575;
+    }
 
     .panel {
         width: 750px;
