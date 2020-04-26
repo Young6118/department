@@ -7,21 +7,20 @@
 参考eeui官网，使用官方组件
 
 ## 原型图
-![首页](./原型1.jpg)
-![列表](./列表.jpg)
-![详情页](./详情页.jpg)
-![消息页](./消息.jpg)
-![我的页](./我的.jpg)
+
+<img src="./原型1.jpg" width = "18%" />
+<img src="./列表.jpg" width = "18%" />
+<img src="./详情页.jpg" width = "18%" />
+<img src="./消息.jpg" width = "18%" />
+<img src="./我的.jpg" width = "18%" />
 
 ## 安装
 
 - 乐居 [Android版](https://www.pgyer.com/leju) 内测密码 1234
 
-![启动图](./screen.png)
-
-![首页](./首页.png)
-
-![搜索](./搜索.jpg)
+<img src="./screen.png" width = "17%" />
+<img src="./首页.jpg" width = "18%" />
+<img src="./搜索.jpg" width = "18%" />
 
 ## 协议
 
