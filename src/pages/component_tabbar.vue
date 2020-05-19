@@ -3,10 +3,11 @@
         <tabbar
                 ref="reflectName"
                 class="tabbar"
-                preload="true"
+                preload="false"
                 :eeui="{ tabType: 'bottom' }"
                 @pageSelected="pageSelected"
                 @tabReselect="tabReselect">
+
             <!--页签①-->
             <tabbar-page ref="name_1"
                 @refreshListener="refreshListener"
@@ -85,6 +86,7 @@
                 </div>
             </tabbar-page>
 
+
             <!--页签②-->
             <tabbar-page ref="name_2" @refreshListener="refreshListener"
                          :eeui="{ tabName: 'name_2', title:'消息', message:0, selectedIcon:'ios-chatboxes' }">
@@ -92,9 +94,21 @@
                     <navbar-item type="title">
                         <text class="page-navbar-title">消息</text>
                     </navbar-item>
+                    <navbar-item type="right">
+                        <icon class="feedbac-icon" @click="goTo('前往用户反馈页面')" :eeui="{content: 'ios-headset'}"></icon>
+                    </navbar-item>
                 </navbar>
                 <div class="page-content">
-                    <text class="content-text">page 2，tab显示器图标支持网络图片</text>
+                    <div class="msg-item" @click="push('plugin_rongim')">
+                        <image class="avatar-img" resize="cover" src="https://ke-image.ljcdn.com/110000-inspection/pc1_CUm3KlMXl.jpg.280x210.jpg"></image>
+                        <div class="msg-info">
+                            <div class="msg-name-time">
+                                <text style="height: 45px;width: 120px;font-size: 30px;">薛之谦</text>
+                                <text style="height: 45px;width: 110px;">晚上1111</text>
+                            </div>
+                            <text class="msg-text">刚刚看到vr看房，哼酷炫asdf空肥？</text>
+                        </div>
+                    </div>
                 </div>
             </tabbar-page>
 
@@ -374,6 +388,12 @@
         font-size: 30px;
         line-height: 70px;
     }
+    .feedbac-icon {
+        color: #fff;
+        width: 120px;
+        height: 40px;
+        font-size: 40px;
+    }
     .input {
         margin-left: 20px;
         background-color: #fff;
@@ -525,6 +545,15 @@
         justify-content: space-between;
         align-items: center;
     }
+    .msg-item {
+        width: 750px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom-color: #e4e4e4;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    }
 
     .house-info {
         width: 520px;
@@ -532,7 +561,15 @@
         flex-direction: column;
         justify-content: center;
     }
-
+    .msg-info {
+        width: 600px;
+        height: 160px;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .msg-text {
+        color: #666666;
+    }
     .house-type {
         margin-top: 25px;
         width: 750px;
@@ -568,5 +605,18 @@
         margin-left: 10px;
         width: 200px;
         height: 140px;
+    }
+    .avatar-img {
+        width: 120px;
+        height: 120px;
+        border-radius: 60px;
+        margin-left: 15px;
+    }
+    .msg-name-time {
+        height: 80px;
+        align-items: center;
+        padding-top: 30px;
+        flex-direction: row;
+        justify-content: space-between;
     }
 </style>

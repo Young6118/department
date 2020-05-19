@@ -12,13 +12,13 @@
 	"rongim": {
 		"ios": {
 			"enabled": true,
-			"appKey": "vnroth0kv8o7o",
-			"appSecret": "5mILjdXtXid7iM"
+			"appKey": "c9kqb3rdc2svj",
+			"appSecret": "qHRvFoztWCM"
 		},
 		"android": {
 			"enabled": true,
-			"appKey": "vnroth0kv8o7o",
-			"appSecret": "5mILjdXtXid7iM"
+			"appKey": "c9kqb3rdc2svj",
+			"appSecret": "qHRvFoztWCM"
 		}
 	},
 	"umeng": {
@@ -42,7 +42,7 @@
 			"appid": "1110117645"
 		}
 	},
-	"socketHost": "192.168.1.7",
-	"socketPort": 8880,
-	"socketHome": "http://192.168.1.7:9990/pages/component_tabbar.js"
+	"socketHost": "",
+	"socketPort": "",
+	"socketHome": ""
 }

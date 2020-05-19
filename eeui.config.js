@@ -16,13 +16,13 @@ module.exports = {
 	"rongim": {
 		"ios": {
 			"enabled": true,
-			"appKey": "vnroth0kv8o7o",
-			"appSecret": "5mILjdXtXid7iM"
+			"appKey": "c9kqb3rdc2svj",
+			"appSecret": "qHRvFoztWCM"
 		},
 		"android": {
 			"enabled": true,
-			"appKey": "vnroth0kv8o7o",
-			"appSecret": "5mILjdXtXid7iM"
+			"appKey": "c9kqb3rdc2svj",
+			"appSecret": "qHRvFoztWCM"
 		}
 	},
 	"umeng": {
