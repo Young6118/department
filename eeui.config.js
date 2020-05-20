@@ -4,7 +4,7 @@
  */
 module.exports = {
 	"serviceUrl": "",
-	"homePage": "component_tabbar.js",
+	"homePage": "login.js",
 	"homePageParams": {},
 	"appKey": "LM9rlGeYOuYJvNR7DzVUZapSx3VhRvLi",
 	"android": {

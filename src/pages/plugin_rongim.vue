@@ -69,8 +69,10 @@
         },
         methods: {
             getAll () {
+                    this.lists = []
                     rongim.addEventHandler(res => {
                         const now = new Date()
+                        console.log(res)
                         this.lists.push({
                             avatar: res.userimg,
                             user: res.username + res.userid,

@@ -4,6 +4,11 @@
 			"requireName": "eeui/rongim",
 			"name": "eeui/rongim",
 			"url": "http://eeui.cdn.gmjfw.com/uploads/plugins/1/rongim/b7429716f9659aeadc14d2474eef9e3d.zip"
+		},
+		"eeui/citypicker": {
+			"requireName": "eeui/citypicker",
+			"name": "eeui/citypicker",
+			"url": "http://eeui.cdn.gmjfw.com/uploads/plugins/1/citypicker/d2fffe3e7e827b961e2156c3d7e48d07.zip"
 		}
 	}
 }

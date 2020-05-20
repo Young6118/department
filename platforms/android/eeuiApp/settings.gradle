@@ -5,3 +5,6 @@ project (':eeui').projectDir = new File("../../../plugins/eeui/framework/android
 
 include ":eeuiRongim"
 project (":eeuiRongim").projectDir = new File("../../../plugins/eeui/rongim/android")
+
+include ":eeuiCitypicker"
+project (":eeuiCitypicker").projectDir = new File("../../../plugins/eeui/citypicker/android")

@@ -13,9 +13,9 @@
                 @refreshListener="refreshListener"
                 :eeui="{ tabName: 'name_1', title:'首页', selectedIcon:'md-home' }">
                 <navbar class="page-navbar">
-                    <navbar-item type="left" class="flex">
-                        <text class="city" @click="goTo('前往地址选择页面')">西安</text>
-                        <icon class="arrown-down" @click="goTo('前往地址选择页面')" :eeui="{content: 'ios-arrow-down'}"></icon>
+                    <navbar-item type="left" class="flex" @click="citypicker">
+                        <text class="city">{{ location.city.slice(0, 2) }}</text>
+                        <icon class="arrown-down" :eeui="{content: 'ios-arrow-down'}"></icon>
                     </navbar-item>
                     <navbar-item type="title">
                         <text class="input" @click="push('component_search.js')">丈八北路 | 西二旗 | 张江地铁站</text>
@@ -120,8 +120,10 @@
                         <text class="page-navbar-title">福利中心</text>
                     </navbar-item>
                 </navbar>
-                <div class="page-content">
-                    <text class="content-text">看广告赚钱</text>
+                <div class="app">
+                    <scroller class="scroller">
+                    <web-view ref="infoView" class="webview"> </web-view>
+                       </scroller>
                 </div>
             </tabbar-page>
 
@@ -137,20 +139,9 @@
                     </navbar-item>
                 </navbar>
                 <div class="page-content">
-                    <div class="panel-item">
-                        <image class="fang-img" resize="cover" src="https://ke-image.ljcdn.com/110000-inspection/pc1_CUm3KlMXl.jpg.280x210.jpg"></image>
-                        <div class="house-info">
-                            <text class="panel-text">檀香府南北通透三居室</text>
-                            <text class="panel-text">135.24㎡/南 北/高楼层 (共6层)</text>
-                            <div class="house-tag">
-                                <image style="height: 45px;width: 120px;" src="https://img.ljcdn.com/beike/haofanglogo/1573111250229.png"></image>
-                                <text class="house-tag-text">诚心卖，省心买</text>
-                            </div>
-                            <div class="house-tag">
-                                <text class="panel-text" style="color: #fe615a;margin-right: 40px;">439 万</text>
-                                <text class="panel-text">32460.8 元/平米</text>
-                            </div>
-                        </div>
+                    <div style="flex-direction: row;width:750px;">
+                        <image class="avatar-img" style="margin-top: 40px;margin-right: 50px;" resize="cover" src="https://ke-image.ljcdn.com/110000-inspection/pc1_CUm3KlMXl.jpg.280x210.jpg"></image>
+                        <text style="line-height: 200px;font-size: 50px;">WangWanWan</text>
                     </div>
                     <text v-for="(item, index) in menuList" :key="index" class="menu-text">{{ item.title }}</text>
                 </div>
@@ -167,6 +158,7 @@
     const modal = weex.requireModule('modal') || {};
     const API = 'https://api.unsplash.com/search/photos?page=1&query=ocean&orientation=landscape&client_id=8cd8d9f168aa2f3f57edfd5a883305df7f7ba96a9fb414231d77c244213efce8';
     const mmmm = app.requireModule('modal');
+    const citypicker = app.requireModule('citypicker');
 
     export default {
         data () {
@@ -196,31 +188,28 @@
                 lists: [],
                 menuList: [
                     {
-                        title: '我的订单',
+                        title: '意见反馈',
                         file: ''
                     },
                     {
-                        title: '我关注的房源',
+                        title: '分享应用',
                         file: ''
                     },
                     {
-                        title: '我的置业顾问',
+                        title: '检查更新',
                         file: ''
                     },
                     {
-                        title: '我的推广',
-                        file: ''
-                    },
-                    {
-                        title: '联系客服',
-                        file: ''
-                    },
-                    {
-                        title: '银行卡信息',
+                        title: '关于我们',
                         file: ''
                     },
                 ],
                 page_size: 4,
+                location: {
+                    province: '河南省',
+                    city: '洛阳市',
+                    area: '宜阳县'
+                }
             }
         },
         created: function() {
@@ -245,6 +234,15 @@
                 this.lists.push(i);
             }
             this.$refs.reflectName.setHasMore(true);
+            this.$refs.infoView.setUrl('https://www.yuque.com/zhouyang-kk2um/mfgvkg');
+            this.$refs.infoView.canGoBack();
+            // this.$refs.infoView.setJavaScript(`
+            //     var style = document.createElement('style')
+            //     style.type = 'text/css'
+            //     var textNode = document.createTextNode(".m-book-header, .slogan, .footer { display: none; }")
+            //     style.appendChild(textNode)
+            //     document.body.appendChild(style)
+            // `);
         },
         methods: {
             viewCode(str) {
@@ -288,6 +286,7 @@
                     message: "点击" + (res.position + 1) + "项",
                     duration: 0.3
                 })
+                this.push('component_department')
             },
             pullLoadListener() {
                 let count = this.lists.length;
@@ -317,12 +316,37 @@
                 }, 1000);
 
             },
+            openPage4() {
+                eeui.openPage({
+                    url: 'https://www.yuque.com/zhouyang-kk2um/mfgvkg',
+                    pageType: 'web',
+                });
+            },
+            citypicker() {
+                if (typeof citypicker === 'undefined') {
+                    eeui.alert({
+                        title: '温馨提示',
+                        message: "检测到未安装citypicker插件，安装详细请登录https://eeui.app/",
+                    });
+                    return;
+                }
+                citypicker.select({
+                    province: this.location.province,
+                    city: this.location.city,
+                    area: this.location.area
+                }, (result) => {
+                    this.location.province = result.province;
+                    this.location.city = result.city;
+                    this.location.area = result.area;
+                });
+            }
         }
     };
 </script>
 
 <style>
     .app {
+        width: 750px;
         flex: 1
     }
 
@@ -618,5 +642,8 @@
         padding-top: 30px;
         flex-direction: row;
         justify-content: space-between;
+    }
+    .webview {
+        flex: 1;
     }
 </style>
