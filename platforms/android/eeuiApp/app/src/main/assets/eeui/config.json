@@ -42,7 +42,7 @@
 			"appid": "1110117645"
 		}
 	},
-	"socketHost": "10.104.35.37",
-	"socketPort": 8880,
-	"socketHome": "http://10.104.35.37:9990/pages/login.js"
+	"socketHost": "",
+	"socketPort": "",
+	"socketHome": ""
 }
