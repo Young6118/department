@@ -3,7 +3,7 @@
     "version": "2.3.4",
     "description": "A eeui project",
     "eeuiclimin": "2.3.4",
-    "author": "kuaifan",
+    "author": "young",
     "scripts": {
         "dev": "eeui dev",
         "dev-once": "eeui dev --simple",

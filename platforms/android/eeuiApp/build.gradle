@@ -49,7 +49,7 @@ subprojects {
         applicationId = "cn.wangwanwan.leju"
 
         versionCode = 1
-        versionName = "1.0.1"
+        versionName = "1.0.2"
 
         eeuiVersionCode = 52
         eeuiVersionName = "2.3.4"

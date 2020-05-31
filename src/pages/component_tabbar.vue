@@ -37,23 +37,27 @@
                             <image class="banner-image" resize="cover" :src="img.src"></image>
                         </div>
                     </banner>
-                    <grid class="grid" :divider="false" columns="5" row="1" :indicatorShow="false">
-                        <div class="grid-item" v-for="(item, index) in gridLists" :key="index">
-                            <icon class="item-image" :eeui="{ content: item.icon }"></icon>
-                            <text class="item-title">{{item.title}}</text>
+                    <grid class="grid" :divider="false" columns="2" row="1" :indicatorShow="false">
+                        <div class="grid-item" @click="goToTrend">
+                            <icon class="item-image" :eeui="{ content: 'ios-trending-up' }"></icon>
+                            <text class="item-title">房价</text>
+                        </div>
+                        <div class="grid-item">
+                            <icon class="item-image" :eeui="{ content: 'tb-news' }"></icon>
+                            <text class="item-title">房产资讯</text>
                         </div>
                     </grid>
-                    <text class="myhouse">我的房子</text>
+                    <!-- <text class="myhouse">我的房子</text>
                     <div class="house-div">
                         <div class="house-msg">
                             <text class="house-text">选择心仪的房源，实时关注房价估值走势，随时掌握小区均价和邻里动态</text>
                             <button class="button" text="立即查看" model="white"></button>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="house-type">
-                        <text class="all-house" @click="push('index.js')">为您推荐  ➤ </text>
-                        <button class="type-button" text="城市" model="white"></button>
-                        <button class="type-button" style="margin-right: 10px;" text="类型" model="white"></button>
+                        <text class="all-house" @click="push('index.js')">本地推荐  ➤ </text>
+                        <!-- <button class="type-button" text="城市" model="white"></button> -->
+                        <!-- <button class="type-button" style="margin-right: 10px;" text="类型" model="white"></button> -->
                     </div>
                     <scroll-view
                         ref="reflectName"
@@ -114,7 +118,7 @@
 
             <!--页签③-->
             <tabbar-page ref="name_3" @refreshListener="refreshListener"
-                         :eeui="{ tabName: 'name_3', title:'福利', dot:true, selectedIcon:'md-gift' }">
+                         :eeui="{ tabName: 'name_3', title:'知识库', dot:true, selectedIcon:'md-gift' }">
                 <navbar class="page-navbar">
                     <navbar-item type="title">
                         <text class="page-navbar-title">福利中心</text>
@@ -170,20 +174,11 @@
                     { src: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3084942693,506713247&fm=26&gp=0.jpg' }
                 ],
                 gridLists: [{
-                    icon: "tb-money-bag",
-                    title: '邀请注册'
+                    icon: "ios-trending-up",
+                    title: '房价'
                 }, {
-                    icon: "tb-shop",
-                    title: '网上认购'
-                }, {
-                    icon: "tb-people-list",
-                    title: "我的推荐"
-                }, {
-                    icon: "tb-list",
-                    title: "我的成交"
-                }, {
-                    icon: "ios-apps",
-                    title: "更多"
+                    icon: "tb-news",
+                    title: "房产资讯"
                 }],
                 lists: [],
                 menuList: [
@@ -321,6 +316,33 @@
                     url: 'https://www.yuque.com/zhouyang-kk2um/mfgvkg',
                     pageType: 'web',
                 });
+            },
+            openPage(url, params) {
+                eeui.openPage({
+                    url,
+                    pageType: 'web',
+                    params
+                });
+            },
+            goToTrend () {
+                const city = this.location.city.slice(0, 2)
+                this.openPage('https://m.baidu.com/sf', {
+                    openapi: 1,
+                    dspName: 'iphone',
+                    from_sf: 1,
+                    pd: 'fang_price',
+                    resource_id: 4769,
+                    group: 'xf',
+                    word: city+'房价',
+                    title: '房价走势',
+                    onlycity: city,
+                    ext: {"sf_tab_name":"新房"},
+                    frsrcid: '',
+                    frorder: '',
+                    lid: '',
+                    fctab: '全城',
+                    cityregion: city
+                })
             },
             citypicker() {
                 if (typeof citypicker === 'undefined') {
@@ -482,17 +504,17 @@
     }
 
     .grid-item {
-        width: 150px;
+        width: 370px;
         height: 180px;
         align-items: center;
     }
 
     .item-image {
-        background-color: #3e9636;
+        background-color: #6abaff;
         font-size: 60px;
         margin-top: 10px;
         color: #fff;
-        width: 120px;
+        width: 300px;
         height: 120px;
         border-radius: 40%;
     }
@@ -513,7 +535,7 @@
     }
     .all-house {
         width:600x;
-        padding:15px 50px;
+        padding:15px 20px;
         font-size: 30px;
     }
     .house-div {
@@ -598,8 +620,8 @@
         margin-top: 25px;
         width: 750px;
         height: 60px;
-        flex-direction: row;
-        justify-content:flex-end;
+        /* flex-direction: row; */
+        /* justify-content:flex-end; */
     }
 
     .type-button {

@@ -1,2 +1,417 @@
 // { "framework": "Vue"} 
-if("undefined"==typeof app&&(app=weex),void 0===eeuiLog)var eeuiLog={_:function(e,t){var r=t.map((function(e){return"[object object]"===Object.prototype.toString.call(e).toLowerCase()?JSON.stringify(e):e}));void 0===this.__m&&(this.__m=app.requireModule("debug")),this.__m.addLog(e,r)},debug:function(){for(var e=[],t=arguments.length;t--;)e[t]=arguments[t];this._("debug",e)},log:function(){for(var e=[],t=arguments.length;t--;)e[t]=arguments[t];this._("log",e)},info:function(){for(var e=[],t=arguments.length;t--;)e[t]=arguments[t];this._("info",e)},warn:function(){for(var e=[],t=arguments.length;t--;)e[t]=arguments[t];this._("warn",e)},error:function(){for(var e=[],t=arguments.length;t--;)e[t]=arguments[t];this._("error",e)}};!function(e){var t={};function r(n){if(t[n])return t[n].exports;var o=t[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,r),o.l=!0,o.exports}r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},r.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(r.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)r.d(n,o,function(t){return e[t]}.bind(null,o));return n},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p="",r(r.s=28)}({28:function(e,t,r){var n,o,i=[];i.push(r(29)),n=r(30);var s=r(31);o=n=n||{},"object"!=typeof n.default&&"function"!=typeof n.default||(Object.keys(n).some((function(e){return"default"!==e&&"__esModule"!==e}))&&console.error("named exports are not supported in *.vue files."),o=n=n.default),"function"==typeof o&&(o=o.options),o.__file="/Users/zhouyang/study/android/weex/findfang/src/pages/component_list.vue",o.render=s.render,o.staticRenderFns=s.staticRenderFns,o._scopeId="data-v-3ed0b624",o.style=o.style||{},i.forEach((function(e){for(var t in e)o.style[t]=e[t]})),"function"==typeof __register_static_styles__&&__register_static_styles__(o._scopeId,i),e.exports=n,e.exports.el="true",new Vue(e.exports)},29:function(e,t){e.exports={app:{width:"750",flex:1},navbar:{width:"750",height:"100"},title:{fontSize:"28",color:"#ffffff"},iconr:{width:"100",height:"100",color:"#ffffff"},list:{width:"750",flex:1},panel:{width:"750",borderBottomColor:"#e4e4e4",borderBottomStyle:"solid",borderBottomWidth:"1"},"panel-item":{width:"750",paddingTop:"22",paddingBottom:"22",flexDirection:"column",justifyContent:"center"},"panel-text":{fontSize:"50",textAlign:"center"}}},30:function(e,t,r){"use strict";r.r(t);var n=app.requireModule("eeui");t.default={data:function(){return{lists:[]}},mounted:function(){for(var e=this,t=1;t<=20;t++)this.lists.push(t);this.$refs.reflectName.setHasMore(!0),setTimeout((function(){e.lists.splice(2,1,"改变第三项文字")}),1e3)},methods:{viewCode:function(e){this.openViewCode(e)},itemClick:function(e){n.toast("点击了"+(e.position+1)+"项")},pullLoadListener:function(){var e=this,t=this.lists.length;t>=100?this.$refs.reflectName.setHasMore(!1):setTimeout((function(){for(var r=1;r<=20;r++)e.lists.push(t+r);e.$refs.reflectName.pullloaded(),n.toast("加载"+(t+1)+"~"+e.lists.length+"数据成功")}),1e3)},refreshListener:function(){for(var e=this,t=[],r=1;r<=20;r++)t.push(r);setTimeout((function(){e.lists=t,e.$refs.reflectName.setHasMore(!0),e.$refs.reflectName.refreshed(),n.toast("刷新数据成功")}),1e3)}}}},31:function(e,t){e.exports={render:function(){var e=this,t=e.$createElement,r=e._self._c||t;return r("div",{staticClass:["app"]},[r("navbar",{staticClass:["navbar"]},[r("navbar-item",{attrs:{type:"back"}}),r("navbar-item",{attrs:{type:"title"}},[r("text",{staticClass:["title"]},[e._v("列表容器")])]),r("navbar-item",{attrs:{type:"right"},on:{click:function(t){e.viewCode("component/scroll-view")}}},[r("icon",{staticClass:["iconr"],attrs:{content:"md-code-working"}})],1)],1),r("scroll-view",{ref:"reflectName",staticClass:["list"],attrs:{eeui:{pullTips:!0}},on:{itemClick:e.itemClick,pullLoadListener:e.pullLoadListener,refreshListener:e.refreshListener}},e._l(e.lists,(function(t){return r("div",{staticClass:["panel"]},[r("div",{staticClass:["panel-item"]},[r("text",{staticClass:["panel-text"]},[e._v(e._s(t))])])])})))],1)},staticRenderFns:[]},e.exports.render._withStripped=!0}});
+if(typeof app=="undefined"){app=weex}
+if(typeof eeuiLog=="undefined"){var eeuiLog={_:function(t,e){var s=e.map(function(e){return e="[object object]"===Object.prototype.toString.call(e).toLowerCase()?JSON.stringify(e):e});if(typeof this.__m==='undefined'){this.__m=app.requireModule('debug')}this.__m.addLog(t,s)},debug:function(){for(var e=[],t=arguments.length;t--;)e[t]=arguments[t];this._("debug",e)},log:function(){for(var e=[],t=arguments.length;t--;)e[t]=arguments[t];this._("log",e)},info:function(){for(var e=[],t=arguments.length;t--;)e[t]=arguments[t];this._("info",e)},warn:function(){for(var e=[],t=arguments.length;t--;)e[t]=arguments[t];this._("warn",e)},error:function(){for(var e=[],t=arguments.length;t--;)e[t]=arguments[t];this._("error",e)}}}
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/pages/component_list.vue?entry=true");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/script-loader.js!../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/node_modules/babel-loader/lib/index.js!../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/selector.js?type=script&index=0!./src/pages/component_list.vue":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** /usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/script-loader.js!/usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/node_modules/babel-loader/lib!/usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/selector.js?type=script&index=0!./src/pages/component_list.vue ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var eeui = app.requireModule('eeui');
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      lists: []
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    for (var i = 1; i <= 20; i++) {
+      this.lists.push(i);
+    }
+
+    this.$refs.reflectName.setHasMore(true); //
+
+    setTimeout(function () {
+      _this.lists.splice(2, 1, "改变第三项文字"); // splice 详细用法http://www.w3school.com.cn/jsref/jsref_splice.asp
+
+    }, 1000);
+  },
+  methods: {
+    viewCode: function viewCode(str) {
+      this.openViewCode(str);
+    },
+    itemClick: function itemClick(params) {
+      eeui.toast("点击了" + (params.position + 1) + "项");
+    },
+    pullLoadListener: function pullLoadListener() {
+      var _this2 = this;
+
+      var count = this.lists.length;
+
+      if (count >= 100) {
+        this.$refs.reflectName.setHasMore(false);
+        return;
+      }
+
+      setTimeout(function () {
+        for (var i = 1; i <= 20; i++) {
+          _this2.lists.push(count + i);
+        }
+
+        _this2.$refs.reflectName.pullloaded();
+
+        eeui.toast("加载" + (count + 1) + "~" + _this2.lists.length + "数据成功");
+      }, 1000);
+    },
+    refreshListener: function refreshListener() {
+      var _this3 = this;
+
+      var newList = [];
+
+      for (var i = 1; i <= 20; i++) {
+        newList.push(i);
+      }
+
+      setTimeout(function () {
+        _this3.lists = newList;
+
+        _this3.$refs.reflectName.setHasMore(true);
+
+        _this3.$refs.reflectName.refreshed();
+
+        eeui.toast("刷新数据成功");
+      }, 1000);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/style-loader.js!../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/style-rewriter.js?id=data-v-3ed0b624!../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/selector.js?type=styles&index=0!./src/pages/component_list.vue":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** /usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/style-loader.js!/usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/style-rewriter.js?id=data-v-3ed0b624!/usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/selector.js?type=styles&index=0!./src/pages/component_list.vue ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = {
+  "app": {
+    "width": "750",
+    "flex": 1
+  },
+  "navbar": {
+    "width": "750",
+    "height": "100"
+  },
+  "title": {
+    "fontSize": "28",
+    "color": "#ffffff"
+  },
+  "iconr": {
+    "width": "100",
+    "height": "100",
+    "color": "#ffffff"
+  },
+  "list": {
+    "width": "750",
+    "flex": 1
+  },
+  "panel": {
+    "width": "750",
+    "borderBottomColor": "#e4e4e4",
+    "borderBottomStyle": "solid",
+    "borderBottomWidth": "1"
+  },
+  "panel-item": {
+    "width": "750",
+    "paddingTop": "22",
+    "paddingBottom": "22",
+    "flexDirection": "column",
+    "justifyContent": "center"
+  },
+  "panel-text": {
+    "fontSize": "50",
+    "textAlign": "center"
+  }
+}
+
+/***/ }),
+
+/***/ "../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/template-compiler.js?id=data-v-3ed0b624!../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/selector.js?type=template&index=0!./src/pages/component_list.vue":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** /usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/template-compiler.js?id=data-v-3ed0b624!/usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/selector.js?type=template&index=0!./src/pages/component_list.vue ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: ["app"]
+  }, [_c('navbar', {
+    staticClass: ["navbar"]
+  }, [_c('navbar-item', {
+    attrs: {
+      "type": "back"
+    }
+  }), _c('navbar-item', {
+    attrs: {
+      "type": "title"
+    }
+  }, [_c('text', {
+    staticClass: ["title"]
+  }, [_vm._v("列表容器")])]), _c('navbar-item', {
+    attrs: {
+      "type": "right"
+    },
+    on: {
+      "click": function($event) {
+        _vm.viewCode('component/scroll-view')
+      }
+    }
+  }, [_c('icon', {
+    staticClass: ["iconr"],
+    attrs: {
+      "content": "md-code-working"
+    }
+  })], 1)], 1), _c('scroll-view', {
+    ref: "reflectName",
+    staticClass: ["list"],
+    attrs: {
+      "eeui": {
+        pullTips: true,
+      }
+    },
+    on: {
+      "itemClick": _vm.itemClick,
+      "pullLoadListener": _vm.pullLoadListener,
+      "refreshListener": _vm.refreshListener
+    }
+  }, _vm._l((_vm.lists), function(num) {
+    return _c('div', {
+      staticClass: ["panel"]
+    }, [_c('div', {
+      staticClass: ["panel-item"]
+    }, [_c('text', {
+      staticClass: ["panel-text"]
+    }, [_vm._v(_vm._s(num))])])])
+  }))], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+
+/***/ }),
+
+/***/ "./src/pages/component_list.vue?entry=true":
+/*!*************************************************!*\
+  !*** ./src/pages/component_list.vue?entry=true ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = []
+
+/* styles */
+__vue_styles__.push(__webpack_require__(/*! !../../../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/style-loader!../../../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/style-rewriter?id=data-v-3ed0b624!../../../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/selector?type=styles&index=0!./component_list.vue */ "../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/style-loader.js!../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/style-rewriter.js?id=data-v-3ed0b624!../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/selector.js?type=styles&index=0!./src/pages/component_list.vue")
+)
+
+/* script */
+__vue_exports__ = __webpack_require__(/*! !../../../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/script-loader!babel-loader!../../../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/selector?type=script&index=0!./component_list.vue */ "../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/script-loader.js!../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/node_modules/babel-loader/lib/index.js!../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/selector.js?type=script&index=0!./src/pages/component_list.vue")
+
+/* template */
+var __vue_template__ = __webpack_require__(/*! !../../../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/template-compiler?id=data-v-3ed0b624!../../../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/selector?type=template&index=0!./component_list.vue */ "../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/template-compiler.js?id=data-v-3ed0b624!../../../../../../usr/local/lib/node_modules/node/lib/node_modules/eeui-cli/lib/loaders/eeui-loader/lib/selector.js?type=template&index=0!./src/pages/component_list.vue")
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {eeuiLog.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "/Users/zhouyang/study/android/weex/findfang/src/pages/component_list.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__._scopeId = "data-v-3ed0b624"
+__vue_options__.style = __vue_options__.style || {}
+__vue_styles__.forEach(function (module) {
+  for (var name in module) {
+    __vue_options__.style[name] = module[name]
+  }
+})
+if (typeof __register_static_styles__ === "function") {
+  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
+}
+
+module.exports = __vue_exports__
+module.exports.el = 'true'
+new Vue(module.exports)
+
+
+/***/ })
+
+/******/ });
